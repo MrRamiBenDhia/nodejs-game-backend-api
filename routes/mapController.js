@@ -23,15 +23,22 @@ router.post('/:mapId/buildings', async (req, res) => {
     if (!map) {
       return res.status(404).json({ message: 'Map not found' });
     }
+
+    // Create a new building object and save it separately
     const building = new Building({
       name: req.body.name,
       position: req.body.position,
-      level: req.body.level,
-      id: req.body.id
+      level: req.body.level
     });
-    map.buildings.push(building);
+    const savedBuilding = await building.save();
+
+    // Add the saved building to the map's buildings array
+    map.buildings.push(savedBuilding);
+
+    // Save the map with the updated buildings array
     await map.save();
-    res.status(201).json(building);
+
+    res.status(201).json(savedBuilding);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
@@ -39,7 +46,7 @@ router.post('/:mapId/buildings', async (req, res) => {
 
 router.get('/:mapId/buildings', async (req, res) => {
   try {
-    const map = await Map.findById(req.params.mapId);
+    const map = await Map.findById(req.params.mapId).populate('buildings');
     if (!map) {
       return res.status(404).json({ message: 'Map not found' });
     }

@@ -2,9 +2,17 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const buildingSchema = new Schema({
+  id: {
+    type: String,
+    required: false
+  },
   name: {
     type: String,
     required: true
+  },
+  description: {
+    type: String,
+    required: false
   },
   position: {
     type: [Number], // Vector 2 [x, y]
@@ -15,10 +23,7 @@ const buildingSchema = new Schema({
     required: true,
     default: 1
   },
-  id: {
-    type: String,
-    required: true
-  }
+  
 });
 
 module.exports = mongoose.model('Building', buildingSchema);
