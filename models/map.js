@@ -11,7 +11,7 @@ const mapSchema = new Schema({
   terrainType: {
     type: String,
     enum: ['forest', 'desert', 'mountain', 'grassland','mixed'], // Example terrain types
-    required: true
+    required: false
   },
   resources: [{
     type: String // Example of resources present in the map

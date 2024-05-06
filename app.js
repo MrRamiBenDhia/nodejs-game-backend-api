@@ -26,12 +26,13 @@ const api = process.env.API_URL;
 const categoriesRoute = require('./routes/categories');
 const userRoute = require('./routes/users');
 const mapRoute = require('./routes/mapController');
-
+const resourcesRoute = require('./routes/resourcesController.js');
 // Routes
 // localhost:3000/api/categories fil postman 
 app.use(`${api}/categories`, categoriesRoute);
 app.use(`${api}/users`, userRoute);
 app.use(`${api}/map`, mapRoute);
+app.use(`${api}/resources`, resourcesRoute);
 
 const dbConfig = require('./config/database.config.js');
 
