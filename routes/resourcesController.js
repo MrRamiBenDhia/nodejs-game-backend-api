@@ -26,8 +26,6 @@ router.get('/', async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
-
-
 // GET resources by ID
 router.get('/:id', async (req, res) => {
   let resource;
@@ -42,13 +40,15 @@ router.get('/:id', async (req, res) => {
 
   // Attach the resource to the res object
   res.resource = resource;
-}
-);
+
+  // Send the response back to the client
+  res.json(resource);
+});
 
 // POST create new resource
 router.post('/', async (req, res) => {
   try {
-    
+
     const resource = new Resource(req.body);
     console.log(resource);
     const savedResource = await resource.save();
